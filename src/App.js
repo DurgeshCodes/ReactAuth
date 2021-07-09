@@ -3,6 +3,7 @@ import SignUp from "./components/Pages/SignUp";
 import { AuthProvider } from "./contexts/authContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./components/Pages/Dashboard";
+import PrivateRoute from "./components/PrivateRoute";
 console.log(
   process.env.REACT_APP_FIREBASE_API_KEY,
   process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -17,7 +18,7 @@ function App() {
       <AuthProvider>
         <Switch>
           <Route path="/signup" component={SignUp} />
-          <Route path="/" exact component={Dashboard} />
+          <PrivateRoute path="/" exact component={Dashboard} />
           <Route path="/signin" component={SignIn} />
         </Switch>
       </AuthProvider>

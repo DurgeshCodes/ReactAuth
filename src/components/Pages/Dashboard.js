@@ -68,12 +68,10 @@ export default function SignUp() {
         <Typography component="h1" variant="h2">
           Profile
         </Typography>
-        {currentUser && (
-          <Typography variant="h4">
-            <strong>Email: </strong>
-            {currentUser.email}
-          </Typography>
-        )}
+        <Typography variant="h4">
+          <strong>Email: </strong>
+          {currentUser.email}
+        </Typography>
         <form className={classes.form} noValidate>
           <Button
             type="submit"
