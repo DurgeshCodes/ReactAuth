@@ -27,8 +27,11 @@ export function AuthProvider({ children }) {
   function signout() {
     return auth.signOut();
   }
+  function resetPassword() {
+    return auth.sendPasswordResetEmail(currentUser.email);
+  }
 
-  const value = { currentUser, signup, signin, signout };
+  const value = { currentUser, signup, signin, signout, resetPassword };
 
   return (
     !loading && (

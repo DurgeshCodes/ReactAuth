@@ -4,6 +4,7 @@ import { AuthProvider } from "./contexts/authContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./components/Pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
+import ForgotPassword from "./components/Pages/ForgotPassword";
 console.log(
   process.env.REACT_APP_FIREBASE_API_KEY,
   process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signup" component={SignUp} />
           <PrivateRoute path="/" exact component={Dashboard} />
           <Route path="/signin" component={SignIn} />
+          <Route path="/forgot-password" component={ForgotPassword} />
         </Switch>
       </AuthProvider>
     </Router>

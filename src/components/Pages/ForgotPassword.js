@@ -3,14 +3,14 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import { Link, useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import RotateLeftIcon from "@material-ui/icons/RotateLeft";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
+import { Link } from "react-router-dom";
 
 import { useAuth } from "../../contexts/authContext";
 
@@ -47,23 +47,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function ForgotPassword() {
   const [error, setError] = useState("");
+  const [message, setmessage] = useState();
   const [loading, setLoading] = useState(false);
-  const { signin } = useAuth();
-  const history = useHistory();
+  const { resetPassword } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = e.currentTarget.elements;
+    const { email } = e.currentTarget.elements;
 
     try {
+      setmessage("");
       setError("");
       setLoading(true);
-      await signin(email.value, password.value);
-      history.push("/");
+      await resetPassword(email.value);
+      setmessage("check your inbox for further instructions ");
     } catch {
-      setError("Failed to Sign In");
+      setError("Failed to Reset Password");
     }
     setLoading(false);
   };
@@ -75,12 +76,13 @@ export default function SignIn() {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <RotateLeftIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign In
+          Reset Password
         </Typography>
         {error && <Alert severity="error">{error}</Alert>}
+        {message && <Alert severity="success">{message}</Alert>}
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -92,16 +94,6 @@ export default function SignIn() {
                 name="email"
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                fullWidth
-                label="Password"
-                type="password"
-                name="password"
-                autoComplete="current-password"
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -111,19 +103,12 @@ export default function SignIn() {
             className={classes.submit}
             disabled={loading}
           >
-            Sign In
+            Reset Password
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="/signup" variant="body2">
-                Don't have an account? Sign Up
-              </Link>
-            </Grid>
-          </Grid>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link to="/forgot-password" variant="body2">
-                Forgot Password?
+              <Link to="/signin" variant="body2">
+                Sign In
               </Link>
             </Grid>
           </Grid>
